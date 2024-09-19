@@ -1,68 +1,51 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import Header from "./layout/Header";
-import Todos from "./Todos";
-import AddTodo from "./AddTodo";
-import { v4 as uuidv4 } from 'uuid';
+import TodoList from "./TodoList";
+import TodoForm from "./TodoForm";
+import { v4 as uuidv4 } from "uuid";
 
-class TodoApp extends Component {
-  constructor(props) {
-    super(props);
+const TodoApp = () => {
+  const [todos, setTodos] = useState([
+    { id: 1, title: "Install React and set up the project environment", completed: true },
+    { id: 2, title: "Run the React application locally on the development server", completed: false },
+    { id: 3, title: "Deploy the React application to a production environment", completed: false },
+  ]);
+  const [title] = useState("To-do-list");
 
-    this.state = {
-      todos: [
-        { id: 1, title: "Cài đặt React", completed: true },
-        { id: 2, title: "Chạy React", completed: false },
-        { id: 3, title: "Deploy React", completed: false },
-      ],
-      title: "Ứng dụng Todo List",
-    };
-  }
-
-  handleCheckboxChange = (id) => {
-    this.setState({
-      todos: this.state.todos.map((todo) => {
-        if (todo.id === id) {
-          todo.completed = !todo.completed;
-        }
-        return todo;
-      }),
-    });
+  const handleCheckboxChange = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
   };
 
-  handleDeleteTodo = (id) => {
-    this.setState({
-      todos: [
-        ...this.state.todos.filter((todo) => {
-          return todo.id !== id;
-        }),
-      ],
-    });
+  const handleDeleteTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.filter((todo) => todo.id !== id)
+    );
   };
 
-  addTodo = (title) => {
+  const addTodo = (title) => {
     const newTodo = {
       id: uuidv4(),
       title: title,
       completed: false,
     };
-    this.setState({
-      todos: [...this.state.todos, newTodo],
-    });
+    setTodos((prevTodos) => [...prevTodos, newTodo]);
   };
 
-  render() {
-    return (
-      <div className="container">
-        <Header title={this.state.title} />
-        <AddTodo addTodo={this.addTodo} />
-        <Todos
-          todos={this.state.todos}
-          handleChange={this.handleCheckboxChange}
-          handleDelete={this.handleDeleteTodo}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <div className="todo-container">
+      <Header title={title} />
+      <TodoForm addTodo={addTodo} />
+      <TodoList
+        todos={todos}
+        handleChange={handleCheckboxChange}
+        handleDelete={handleDeleteTodo}
+      />
+    </div>
+  );
+};
 
 export default TodoApp;

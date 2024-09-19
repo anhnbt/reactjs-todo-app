@@ -1,6 +1,7 @@
 * {
   padding: 0;
   margin: 0;
+  box-sizing: border-box;
 }
 
 .site-header {
@@ -9,58 +10,64 @@
   padding: 10px;
 }
 
-.container {
-  max-width: 500px;
+.todo-container {
+  max-width: 768px;
   border: 1px solid #ddd;
   margin: 0 auto;
 }
 
-.todo-item {
+.task-item {
   list-style-type: none;
   padding: 8px 10px;
   border: 1px solid #ddd;
 }
 
-.todo-item input {
+.task-item input {
   margin-right: 8px;
 }
 
-.completed {
+.task-completed {
   text-decoration: line-through;
-  color: green;
+  color: #a5d6a7;
   font-style: italic;
+  opacity: 0.7;
 }
 
-.btn {
+.btn-delete-task {
   float: right;
   border-radius: 50%;
   padding: 4px 10px;
-  background-color: red;
+  background-color: #e53935;
   color: #fff;
-  border: 1px solid red;
+  border: 1px solid #e53935;
+  cursor: pointer;
 }
 
-.form-container {
+.task-form-container {
   display: flex;
+  gap: 8px;
 }
 
-.form-input {
+.task-form-input {
   flex: 8;
   padding: 8px;
   border: none;
   outline: none;
 }
 
-.form-btn {
+.btn-add-task {
   flex: 2;
-  background-color: green;
+  background-color: #4caf50;
   color: #fff;
   border: none;
   outline: none;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.form-btn:disabled,
-form-btn[disabled] {
+.btn-add-task:disabled,
+btn-add-task[disabled] {
   background-color: #cccccc;
   color: #666666;
 }
