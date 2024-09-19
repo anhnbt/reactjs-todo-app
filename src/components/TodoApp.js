@@ -12,7 +12,7 @@ class TodoApp extends Component {
         { id: 2, title: "Chạy React", completed: false },
         { id: 3, title: "Deploy React", completed: false },
       ],
-      title: 'Ứng dụng Todo List'
+      title: "Ứng dụng Todo List",
     };
   }
 
@@ -29,11 +29,13 @@ class TodoApp extends Component {
 
   handleDeleteTodo = (id) => {
     this.setState({
-        todos: this.state.todos.filter((todo) => {
-            return todo.id !== id
-        })
-    })
-  }
+      todos: [
+        ...this.state.todos.filter((todo) => {
+          return todo.id !== id;
+        }),
+      ],
+    });
+  };
 
   render() {
     return (
